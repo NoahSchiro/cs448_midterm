@@ -58,7 +58,7 @@ def extract_features(sentence, index):
     return {'token': token}
 
 # Prepare Training Data:  creating feature vectors and corresponding
-# labels (POS tags) for your logistic regression model using 
+# labels (POS tags) for logistic regression model using 
 # import nltk
 # prepare_data() Prepares the training data by extracting features and labels (POS tags) for
 # the Logistic Regression model.
