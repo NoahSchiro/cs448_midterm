@@ -1,5 +1,7 @@
+## tip for code to work: run in term "pip3 install scikit-learn" and " pip3 install nltk"
+
 import nltk # natural language toolkit
-nltk.download('punkt')
+#nltk.download('punkt')
 
 # Import for vectorizing features
 from sklearn.feature_extraction import DictVectorizer
@@ -66,11 +68,12 @@ def prepare_data(data):
     labels = []
 
     for sentence in data:
-        for i in range(len(sentence)):
-            features.append(extract_features(data, i))
-            labels.append(sentence[i][1])
+        for token, pos_tag, *_ in sentence:
+            features.append(extract_features(sentence, token))  # Use token instead of data
+            labels.append(pos_tag)
 
     return features, labels
+
 
 # Training Logistic Regression Model: using se the LogisticRegression
 # class from the sklearn library to train model. 
