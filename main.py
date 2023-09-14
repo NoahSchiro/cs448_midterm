@@ -106,7 +106,7 @@ def evaluate_model(model, vectorizer, data):
 # Predicting POS tags: pred POS tags for new sentences
 # using the trained calssifier
 
-def predict_pos_tags(sentence):
+def predict_pos_tags(sentence, vectorizer, clf):
     features = [extract_features(sentence, i) for i in range(len(sentence))]
     X = vectorizer.transform(features)
     predicted_labels = clf.predict(X)
