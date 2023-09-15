@@ -5,7 +5,6 @@ pos_mapping  = {}
 
 def get_data():
     with open("train.txt", "r") as f:
-
         # Long string
         txt = f.read()
 
@@ -65,4 +64,3 @@ if __name__=="__main__":
     # r = Regression()
 
     b.train(data)
-
