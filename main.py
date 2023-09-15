@@ -57,6 +57,12 @@ def extract_features(sentence, index):
     token = sentence[index][0]
     return {'token': token}
 
+# debugging: In this updated function,
+# we assume that sentence is a list of tuples, 
+# and we access the token using sentence[index][0]. 
+# This should resolve the TypeError issue and yet........
+
+
 # Prepare Training Data:  creating feature vectors and corresponding
 # labels (POS tags) for logistic regression model using 
 # import nltk
@@ -92,8 +98,8 @@ def train_logistic_regression_model(features, labels):
     
     return clf, vectorizer
 
-# Evaluation using cross validation
-# evaluate_model()  Evaluates the trained model using a small part 
+# Evaluation using cross validation or not...
+# evaluate_model() evaluates the trained model using a small part 
 # of the training data as a dev set and prints the classification report.
 
 def evaluate_model(model, vectorizer, data):
