@@ -3,7 +3,6 @@
 # POS tag, and Chunking tag. 
 def get_data():
     with open("train.txt", "r") as f:
-
         # Long string
         txt = f.read()
 
