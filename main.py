@@ -1,3 +1,5 @@
+from algos.bayes import Bayes
+
 
 def get_data():
     with open("train.txt", "r") as f:
@@ -18,4 +20,6 @@ def get_data():
 
 if __name__=="__main__":
     data = get_data()
+
+    b = Bayes()
 
