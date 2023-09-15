@@ -3,6 +3,8 @@
 
 # Import for generating classification report
 from sklearn.metrics import classification_report
+# Import for vectorizing features
+from sklearn.feature_extraction import DictVectorizer
 
 # We only need the first two columns (token and POS tag),
 # modifying the code slightly to return only those columns.
@@ -12,6 +14,11 @@ def get_data():
     with open("train.txt", "r") as f:
         lines = f.read().strip().split('\n')
         data = [line.split(' ')[:2] for line in lines]
+
+    # Some of the data only contains ' ', so pad this with another so everything is length 2
+    for line in data:
+        if len(line) == 1:
+            line.append(' ')
     return data
 
 # Featue extraction: defining features for each token based on its context,
@@ -57,11 +64,40 @@ def evaluate_model(model, vectorizer, data):
     
     print(classification_report(dev_labels, predicted_labels))
 
+def data_dictionary(data):
+    X_data = list(map(lambda x: x[0], data))
+    Y_data = list(map(lambda x: x[1], data))
+
+    X_dict = {}
+    Y_dict = {}
+    counter = 0
+
+    for elem in X_data:
+        if elem not in X_dict:
+            X_dict[elem] = counter
+            counter += 1
+
+    counter = 0
+
+    for elem in Y_data:
+        if elem not in Y_dict:
+            Y_dict[elem] = counter
+            counter += 1
+
+    return X_dict, Y_dict
+
 if __name__ == "__main__":
 
+    # Get raw data
     data = get_data()
 
-    features, labels = prepare_data(data)
+    # Get a mapping for 
+    # word    -> integer and
+    # POS tag -> integer
+    xd, yd = data_dictionary(data)
 
-    print(features[0])
-    print(labels[0])
+    # Finally obtain a vectorization of our data
+    x_vec = DictVectorizer().fit([xd])
+    y_vec = DictVectorizer().fit([yd])
+    
+

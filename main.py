@@ -1,47 +1,5 @@
 from algos.bayes import Bayes
-
-word_mapping = {}
-pos_mapping  = {}
-
-def get_data():
-    with open("train.txt", "r") as f:
-        # Long string
-        txt = f.read()
-
-        # List of strings
-        lines = txt.split('\n')
-
-        complete_data = []
-
-        for line in lines:
-            # Split each line into a 3 tuple
-            complete_data.append(tuple(line.split(' ')))
-
-        return complete_data
-
-def data_preprocess(data):
-
-    # Filter out all training pieces that don't have 2 elements
-    data = list(filter(lambda x: len(x) >= 2, data))
-
-    # The data is composed as [(X_2, Y_2), (X_2, Y_2), ...]
-    # So we will begin by splitting this into [[X_1], [X_2], ...]] and [Y_1, Y_2, ...]
-
-    X = list(map(lambda x: x[0], data))
-    Y = list(map(lambda x: x[1], data))
-    print(X)
-
-    return X, Y
-
-def data_vectorize(data):
-
-    word_counter = 0
-
-    for (X, Y, _) in data:
-        if X not in word_mapping:
-            word_mapping[X] = word_counter
-            word_counter += 1
-
+from algos.utils import *
 
 if __name__=="__main__":
 
