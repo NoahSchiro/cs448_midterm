@@ -10,10 +10,10 @@ Split the three algorithms among the three of us:
 Ideas for maximizing performance:
 I don't think it'll be enough to just pass in the word and expect it to predict the part of speech, we might want to incorporate positional encoding as well (where the word is in the sentence) or maybe what words came before or after the word?
 
-# Linear/Logistic Regression
+## Linear/Logistic Regression
 ---
 
-Here is the expanation of how the logistic regression for POS tagging. Here's a brief overview of its implementation:
+Here is the explanation of how the logistic regression for POS tagging. Here's a brief overview of its implementation:
 
 Data Preparation: The code reads training data from "train.txt," which contains sentences with tokens and their corresponding POS tags. It extracts the token and POS tag from each line and stores them in a list of tuples, where each tuple contains a token and its POS tag.
 

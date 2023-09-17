@@ -101,7 +101,6 @@ def main():
     for i in range(min(len(data), 5)):  # Print the first 5 tuples
         print(data[i])
 
-
     # Prepare the data
     features, labels = prepare_data(data)
 
