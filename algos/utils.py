@@ -19,8 +19,8 @@ def get_data():
 # extract_features() extracts features for a given token in a sentence. In this example, it uses the
 # current token as a feature.
 
-def extract_features(sentence, index):
-    token = sentence[index][0]
+def extract_features(token):
+    #token = sentence[index][0]
     return {'token': token}
 
 # debugging: In this updated function,
@@ -40,9 +40,10 @@ def prepare_data(data):
 
 
     for sentence in data:
-        for token, pos_tag, *_ in sentence:
-            features.append(extract_features(sentence, token))  # Use token instead of data
-            labels.append(pos_tag)
+        token = sentence[0]  # Assuming the token is the first (and only) element
+        pos_tag = sentence[1] if len(sentence) > 1 else ''  # Use the second element if available, or an empty string if not
+        features.append(extract_features(token))
+        labels.append(pos_tag)
 
     return features, labels
 
@@ -59,8 +60,29 @@ def evaluate_model(model, vectorizer, data):
 
 if __name__ == "__main__":
 
+<<<<<<< HEAD:algos/utils.py
     data = get_data()
 
+=======
+def predict_pos_tags(sentence, vectorizer, clf):
+    features = [extract_features(token) for token in sentence]
+    X = vectorizer.transform(features)
+    predicted_labels = clf.predict(X)
+    return predicted_labels
+
+
+def main():
+    # Load and preprocess the data
+    data = get_data()
+
+    # Print the first few tuples of the data
+    print("Sample data tuples:")
+    for i in range(min(len(data), 5)):  # Print the first 5 tuples
+        print(data[i])
+
+
+    # Prepare the data
+>>>>>>> c5f2df5 ( debug: inner list contains one element (fixed)):Logistic_Reg.py
     features, labels = prepare_data(data)
 
     print(features[0])
