@@ -1,5 +1,5 @@
 ## tip for code to work: run in term "pip3 install scikit-learn" and " pip3 install nltk"
-
+from pos_utils import get_data, extract_features, prepare_data
 import nltk # natural language toolkit
 #nltk.download('punkt')
 
@@ -20,20 +20,20 @@ from sklearn.metrics import classification_report
 # get_data() reads and parses the training data from 'train.txt' and returns a list of tuples
 # containing token and POS tag.
 
-def get_data():
+""" def get_data():
     with open("train.txt", "r") as f:
         lines = f.read().strip().split('\n')
         data = [line.split(' ')[:2] for line in lines]
     return data
-
+ """
 # Feature extraction: defining features for each token based on its context,
 # such as the previous and next words, prefixes, suffixes, etc. 
 # extract_features() extracts features for a given token in a sentence. In this example, it uses the
 # current token as a feature.
 
-def extract_features(token):
+""" def extract_features(token):
     #token = sentence[index][0]
-    return {'token': token}
+    return {'token': token} """
 
 # Prepare Training Data:  creating feature vectors and corresponding
 # labels (POS tags) for logistic regression model using 
@@ -41,7 +41,7 @@ def extract_features(token):
 # prepare_data() Prepares the training data by extracting features and labels (POS tags) for
 # the Logistic Regression model.
 
-def prepare_data(data):
+""" def prepare_data(data):
     features = []
     labels = []
 
@@ -51,7 +51,7 @@ def prepare_data(data):
         features.append(extract_features(token))
         labels.append(pos_tag)
 
-    return features, labels
+    return features, labels """
 
 
 # Training Logistic Regression Model: using se the LogisticRegression
