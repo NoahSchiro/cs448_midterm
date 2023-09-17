@@ -26,7 +26,7 @@ def get_data():
         data = [line.split(' ')[:2] for line in lines]
     return data
 
-# Featue extraction: defining features for each token based on its context,
+# Feature extraction: defining features for each token based on its context,
 # such as the previous and next words, prefixes, suffixes, etc. 
 # extract_features() extracts features for a given token in a sentence. In this example, it uses the
 # current token as a feature.
