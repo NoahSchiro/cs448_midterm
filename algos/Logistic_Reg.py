@@ -7,6 +7,8 @@ from sklearn.feature_extraction import DictVectorizer
 from sklearn.linear_model import LogisticRegression
 # Import for generating classification report
 from sklearn.metrics import classification_report
+# Import for data splitting
+from sklearn.model_selection import train_test_split  
 
 # need to install scikit-learn (type "pip install scikit-learn"
 # in terminal)
@@ -51,21 +53,26 @@ def predict_pos_tags(sentence, vectorizer, clf):
 
 def main(data):
     # Load and preprocess the data
+    data = get_data()
+      # Split the data into training, dev, and test sets
+    train_data, test_data = train_test_split(data, test_size=0.15, random_state=42)
+    train_data, dev_data = train_test_split(train_data, test_size=0.15, random_state=42)
 
-    # Print the first few tuples of the data
-    print("Sample data tuples:")
-    for i in range(min(len(data), 5)):  # Print the first 5 tuples
-        print(data[i])
-
-    # Prepare the data
-    features, labels = prepare_data(data)
+    # Prepare the data for training, dev, and testing
+    train_features, train_labels = prepare_data(train_data)
+    dev_features, dev_labels = prepare_data(dev_data)
+    test_features, test_labels = prepare_data(test_data)
 
     # Train the Logistic Regression model
-    model, vectorizer = train_logistic_regression_model(features, labels)
+    model, vectorizer = train_logistic_regression_model(train_features, train_labels)
 
-    # Evaluate the model
-    evaluate_model(model, vectorizer, data)
+    # Evaluate the model on the development set
+    print("Evaluation on the Development Set:")
+    evaluate_model(model, vectorizer, dev_data)
 
+    # Evaluate the model on the test set
+    print("Evaluation on the Test Set:")
+    evaluate_model(model, vectorizer, test_data)
 if __name__ == "__main__":
     data = get_data()
     main(data)
