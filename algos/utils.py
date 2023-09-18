@@ -1,18 +1,33 @@
 # tip for code to work: run in term "pip3 install scikit-learn"
-
+import random
 # Import for generating classification report
 from sklearn.metrics import classification_report
+
+# Import for data splitting
+from sklearn.model_selection import train_test_split  
 
 # We only need the first two columns (token and POS tag),
 # modifying the code slightly to return only those columns.
 # get_data() reads and parses the training data from 'train.txt' and returns a list of tuples
 # containing token and POS tag.
 
-def get_data():
+def get_data(test_size=0.15, dev_size=0.15, random_seed=42):
     with open("train.txt", "r") as f:
         lines = f.read().strip().split('\n')
         data = [line.split(' ')[:2] for line in lines]
-    return data
+
+    # Split the data into training, dev, and test sets
+    random.seed(random_seed)
+    random.shuffle(data)
+
+    test_split = int(len(data) * test_size)
+    dev_split = int(len(data) * dev_size)
+
+    test_data = data[:test_split]
+    dev_data = data[test_split:test_split + dev_split]
+    train_data = data[test_split + dev_split:]
+
+    return train_data, dev_data, test_data
 
 # Feature extraction: defining features for each token based on its context,
 # such as the previous and next words, prefixes, suffixes, etc. 
