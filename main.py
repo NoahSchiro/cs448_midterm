@@ -1,21 +1,15 @@
-
-def get_data():
-    with open("train.txt", "r") as f:
-
-        # Long string
-        txt = f.read()
-
-        # List of strings
-        lines = txt.split('\n')
-
-        complete_data = []
-
-        for line in lines:
-            # Split each line into a 3 tuple
-            complete_data.append(tuple(line.split(' ')))
-
-        return complete_data
+import algos.Logistic_Reg as reg
+from algos.utils import get_data
 
 if __name__=="__main__":
+
+    # Get the data
     data = get_data()
+
+    # Run the regression script
+    reg.main(data)
+
+    #bayes.main(data)
+
+    #svm.main(data)
 
