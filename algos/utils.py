@@ -71,5 +71,4 @@ if __name__ == "__main__":
 
     # Prepare the data
     features, labels = prepare_data(data)
->>>>>>> master
 

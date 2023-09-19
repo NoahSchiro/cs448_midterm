@@ -51,7 +51,7 @@ def predict_pos_tags(sentence, vectorizer, clf):
 
 def main(data):
      # Load and preprocess the data
-    train_data, dev_data, test_data = get_data()
+    train_data, dev_data, test_data = data 
 
     # Prepare the data for training, dev, and testing
     train_features, train_labels = prepare_data(train_data)
