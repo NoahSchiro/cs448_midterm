@@ -9,7 +9,7 @@ from sklearn.metrics import classification_report
 
 
 def train_svm_model(t_features, t_labels):
-
+    print("Inside the train svm function")
     # Vectorize the features (give them numerical value)
     vectorizer = DictVectorizer()
     v_features = vectorizer.fit_transform(t_features)
@@ -42,7 +42,7 @@ def main(data):
     test_features, test_labels = prepare_data(test_data)
 
     #Train with SVM model
-
+    print("About evaluate:")
     svmodel, vectorizer = train_svm_model(train_features, train_labels)
 
     #Evaluate the model dev set
