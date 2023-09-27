@@ -13,10 +13,11 @@ def train_svm_model(t_features, t_labels):
     # Vectorize the features (give them numerical value)
     vectorizer = DictVectorizer()
     v_features = vectorizer.fit_transform(t_features)
-
+    print("here")
     # Train SVM model
     clf = svm.SVC(kernel='linear')
-    clf.fit(v_features, t_labels)
+    #print("Checking features V_Features:", v_features)
+    clf.fit(v_features,t_labels)
 
     return clf, vectorizer
     
@@ -38,6 +39,7 @@ def main(data):
     train_data, dev_data, test_data = get_data()
 
     train_features, train_labels = prepare_data(train_data)
+    print("First Feature Element:", train_features[1])
     dev_features, dev_labels = prepare_data(dev_data)
     test_features, test_labels = prepare_data(test_data)
 
