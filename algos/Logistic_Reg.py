@@ -1,5 +1,5 @@
 ## tip for code to work: run in term "pip3 install scikit-learn" and " pip3 install nltk"
-from .utils import get_data, extract_features, prepare_data
+from utils import get_data, extract_features, prepare_data
 
 # Import for vectorizing features
 from sklearn.feature_extraction import DictVectorizer
