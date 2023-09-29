@@ -1,7 +1,5 @@
-import numpy
 from sklearn.naive_bayes import GaussianNB
 from sklearn.feature_extraction import DictVectorizer
-from sklearn import metrics
 
 from .utils import prepare_data
 
