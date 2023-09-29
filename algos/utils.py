@@ -2,6 +2,8 @@
 import random
 # Import for generating classification report
 from sklearn.metrics import classification_report
+# Import for vectorizing features
+from sklearn.feature_extraction import DictVectorizer
 
 # Import for data splitting
 from sklearn.model_selection import train_test_split  
@@ -70,5 +72,3 @@ if __name__ == "__main__":
     # Prepare the data
     features, labels = prepare_data(data)
 
-    print(features[0])
-    print(labels[0])
