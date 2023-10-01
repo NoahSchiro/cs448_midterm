@@ -1,4 +1,5 @@
-import algos.Logistic_Reg as reg
+import algos.log_reg as log_reg
+import algos.svm as svm
 from algos.bayes import Bayes 
 from algos.utils import get_data
 
@@ -8,10 +9,13 @@ if __name__=="__main__":
     data = get_data()
 
     # Run the regression script
-    #reg.main(data)
-    #svm.main(data)
+    #log_reg.main(data)
 
-    bayes = Bayes()
-    bayes.train(data)
+    # Run the svm script
+    svm.main(data)
 
-    bayes.test()
+    # Run the bayes script
+    #bayes = Bayes()
+    #bayes.train(data)
+
+    #bayes.test()

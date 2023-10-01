@@ -14,12 +14,11 @@ class Bayes():
 
     def pre_process(self, data):
 
-        # Train, dev, test split
-        train, dev, test = data
+        # Train, test split
+        train, test = data
 
         # Split into features and labels
         self.X_train, self.Y_train = prepare_data(train)
-        self.X_dev,   self.Y_dev   = prepare_data(dev)
         self.X_test,  self.Y_test  = prepare_data(test)
 
     # Training the model
