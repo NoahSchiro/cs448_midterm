@@ -3,8 +3,8 @@
 
 Split the three algorithms among the three of us:
 
-- [ ] Bayesian Classifier
-- [ ] SVM
+- [x] Bayesian Classifier
+- [x] SVM
 - [x] Linear / Logisitc Regression (for this task, likely a logisitic regression)
 
 Ideas for maximizing performance:
