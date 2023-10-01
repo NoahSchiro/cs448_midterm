@@ -13,7 +13,7 @@ from sklearn.model_selection import train_test_split
 # get_data() reads and parses the training data from 'train.txt' and returns a list of tuples
 # containing token and POS tag.
 
-def get_data(test_size=0.20, random_seed=42):
+def get_data(test_size=0.10, random_seed=42):
     with open("train.txt", "r") as f:
         lines = f.read().strip().split('\n')
         data = [line.split(' ')[:2] for line in lines]

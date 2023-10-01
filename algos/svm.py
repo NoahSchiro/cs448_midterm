@@ -26,7 +26,7 @@ def evaluate_model(model, vectorizer, data):
     X_dev = vectorizer.transform(dev_features)
     predicted_labels = model.predict(X_dev)
     
-    print("Classification Report:\n", classification_report(dev_labels, predicted_labels))
+    print("[SVM] Classification Report:\n", classification_report(dev_labels, predicted_labels))
 
 # Predict part-of-speech tags for a sentence using the trained SVM model.
 def predict_pos_tags(sentence, vectorizer, clf):
@@ -37,19 +37,19 @@ def predict_pos_tags(sentence, vectorizer, clf):
 
 def main(data):
 
-    print("Loading data...")
+    print("[SVM] Loading data...")
     train_data, test_data = get_data()
     
     # Prepare training, development, and test data
     train_features, train_labels = prepare_data(train_data)
 
-    print("Data load done...")
+    print("[SVM] Data load done...")
 
     # Train with SVM model
     svmodel, vectorizer = train_svm_model(train_features, train_labels)
 
     # Evaluate the model on the test set
-    print("Evaluation on the Test Set:")
+    print("[SVM] Evaluation on the Test Set:")
     evaluate_model(svmodel, vectorizer, test_data)
     
     # Example sentence for prediction
@@ -57,7 +57,7 @@ def main(data):
 
     # Predict part-of-speech tags for the example sentence
     predicted_tags = predict_pos_tags(sentence_to_predict, vectorizer, svmodel)
-    print("Predicted Tags for the Example Sentence:", predicted_tags)
+    print("[SVM] Predicted Tags for the Example Sentence:", predicted_tags)
 
 if __name__== "__main__":
     data = get_data()
