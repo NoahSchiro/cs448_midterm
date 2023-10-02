@@ -6,7 +6,7 @@ from algos.utils import get_data
 
 if __name__ == "__main__":
     # Get the data and split
-    train_data, test_data = get_data()
+    train_data, _, test_data = get_data()
 
     # Prepare the data for training and testing
     train_features, train_labels = utils.prepare_data(train_data)
