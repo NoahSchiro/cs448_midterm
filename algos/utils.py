@@ -13,21 +13,27 @@ from sklearn.model_selection import train_test_split
 # get_data() reads and parses the training data from 'train.txt' and returns a list of tuples
 # containing token and POS tag.
 
-def get_data(test_size=0.10, random_seed=42):
-    with open("train.txt", "r") as f:
-        lines = f.read().strip().split('\n')
-        data = [line.split(' ')[:2] for line in lines]
+def get_data(train_file="train.txt", test_file="unlabeled_test_test.txt", test_size=0.10, random_seed=42):
+    # Read and parse the training data from 'train.txt'
+    with open(train_file, "r") as f:
+        train_lines = f.read().strip().split('\n')
+        train_data = [line.split(' ')[:2] for line in train_lines]
 
-    # Split the data into training, dev, and test sets
+    # Read and parse the test data from 'unlabeled_test_test.txt'
+    with open(test_file, "r") as f:
+        test_lines = f.read().strip().split('\n')
+        test_data = [line.split(' ')[:2] for line in test_lines]
+
+    # Split the training data into training and validation sets
     random.seed(random_seed)
-    random.shuffle(data)
+    random.shuffle(train_data)
 
-    test_split = int(len(data) * test_size)
+    test_split = int(len(train_data) * test_size)
 
-    test_data = data[:test_split]
-    train_data = data[test_split:]
+    validation_data = train_data[:test_split]
+    train_data = train_data[test_split:]
 
-    return train_data, test_data
+    return train_data, validation_data, test_data
 
 # Feature extraction: defining features for each token based on its context,
 # such as the previous and next words, prefixes, suffixes, etc. 
@@ -59,14 +65,20 @@ def prepare_data(data):
 if __name__ == "__main__":
 
     # Load and preprocess the data
-    data = get_data()
+    train_data, validation_data, test_data = get_data()
 
-    # Print the first few tuples of the data
-    print("Sample data tuples:")
-    for i in range(min(len(data), 5)):  # Print the first 5 tuples
-        print(data[i])
+    # Print the first few tuples of the training data
+    print("Sample training data tuples:")
+    for i in range(min(len(train_data), 5)):  # Print the first 5 tuples
+        print(train_data[i])
 
+    # Print the first few tuples of the test data
+    print("Sample test data tuples:")
+    for i in range(min(len(test_data), 5)):  # Print the first 5 tuples
+        print(test_data[i])
 
     # Prepare the data
-    features, labels = prepare_data(data)
+    train_features, train_labels = prepare_data(train_data)
+    validation_features, validation_labels = prepare_data(validation_data)
+    test_features, _ = prepare_data(test_data)
 
