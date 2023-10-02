@@ -12,21 +12,11 @@ class Bayes():
         self.vec = DictVectorizer()
         self.model = GaussianNB()
 
-    def pre_process(self, data):
-
-        # Train, dev, test split
-        train, dev, test = data
-
-        # Split into features and labels
-        self.X_train, self.Y_train = prepare_data(train)
-        self.X_dev,   self.Y_dev   = prepare_data(dev)
-        self.X_test,  self.Y_test  = prepare_data(test)
-
     # Training the model
-    def train(self, data):
+    def train(self, train_data):
 
         # Run preprocessing on the data
-        self.pre_process(data)
+        self.X_train, self.Y_train = prepare_data(train_data)
 
         # word -> vector
         self.X_train_vec = self.vec.fit_transform(self.X_train)
@@ -38,7 +28,7 @@ class Bayes():
         for idx in range(0, len(self.Y_train), 5000):
 
             progress = (idx / len(self.Y_train)) * 100
-            print(f"Training... {progress:.2f}%", end="\r")
+            print(f"[Bayes] Training... {progress:.2f}%", end="\r")
 
             # Get batch
             X = self.X_train_vec[idx:idx+5000]
@@ -51,10 +41,12 @@ class Bayes():
             else:
                 self.model.partial_fit(X.toarray(), Y)
 
-        print("Training complete!")
+        print("[Bayes] Training complete!")
 
 
-    def test(self):
+    def test(self, test_data):
+
+        self.X_test, self.Y_test = prepare_data(test_data)
 
         correct = 0
         total = 0
@@ -76,13 +68,15 @@ class Bayes():
                     correct += 1
 
             progress = (idx / len(self.Y_test)) * 100
-            print(f"Testing... {progress:.2f}%; acc = {(correct/total) * 100:.2f}", end="\r")
+            print(f"[Bayes] Testing... {progress:.2f}%; acc = {(correct/total) * 100:.2f}", end="\r")
 
         print("\n ")
-        print(f"Accuracy: {(correct / total) * 100:.2f}%")
+        print(f"[Bayes] Accuracy: {(correct / total) * 100:.2f}%")
 
 
-          
     # Forward is like our inference
     def forward(self, x):
-        return self.model.predict(x)
+        # Vector transform
+
+        x = self.vec.transform(x)
+        return self.model.predict(x.toarray())

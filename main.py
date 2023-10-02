@@ -1,17 +1,69 @@
-import algos.Logistic_Reg as reg
+import algos.log_reg as log_reg
+import algos.svm as svm
+import algos.utils as utils
 from algos.bayes import Bayes 
 from algos.utils import get_data
 
 if __name__=="__main__":
 
-    # Get the data
-    data = get_data()
+    # Get the data and split
+    train_data, test_data = get_data() 
 
-    # Run the regression script
-    #reg.main(data)
-    #svm.main(data)
+    # Prepare the data for training and testing
+    train_features, train_labels = utils.prepare_data(train_data)
+    test_features, test_labels   = utils.prepare_data(test_data)
 
+    # Train the Logistic Regression model
+    print("-----------------TRAINING LOG REG------------------------")
+    log_reg_model, log_reg_vectorizer = log_reg.train_logistic_regression_model(train_features, train_labels)
+
+    # Train the SVM model
+    print("-----------------TRAINING SVM------------------------")
+    svm_model, svm_vectorizer = svm.train_svm_model(train_features, train_labels)
+
+    # Run the bayes script
+    print("-----------------TRAINING BAYES------------------------")
     bayes = Bayes()
-    bayes.train(data)
+    bayes.train(train_data)
 
-    bayes.test()
+    total   = 0
+    correct = 0
+
+    for (feature, label) in zip(test_features, test_labels):
+
+        # Make a prediction for bayes
+        b_pred = bayes.forward(feature)
+
+        # Make a prediction for svm
+        s_pred = svm.predict_pos_tags([feature["token"]], svm_vectorizer, svm_model)
+
+        # Make a prediction for Logistic Regression
+        l_pred = log_reg.predict_pos_tags([feature["token"]], log_reg_vectorizer, log_reg_model)
+
+        pred = None
+
+        # If they all predict the same thing, use that
+        if b_pred == s_pred and s_pred == l_pred:
+            pred = b_pred
+
+        # The following rules just implement 2/3rds majority guess
+        elif b_pred == s_pred or b_pred == l_pred:
+            pred = b_pred
+        elif s_pred == l_pred:
+            pred = s_pred
+
+        # If NONE of them equal each other, then just use the model
+        # with the highest accuracy
+        else:
+            pred = l_pred
+
+
+        # Okay we have our prediction, let's see how our accuracy goes
+
+        total += 1
+        if pred == label:
+            correct += 1
+        else:
+            print(f"pred: {pred}, acc: {label}")
+            print(f"accu: {(correct/total) * 100}")
+

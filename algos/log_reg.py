@@ -1,5 +1,5 @@
 ## tip for code to work: run in term "pip3 install scikit-learn" and " pip3 install nltk"
-from utils import get_data, extract_features, prepare_data
+from .utils import get_data, extract_features, prepare_data
 
 # Import for vectorizing features
 from sklearn.feature_extraction import DictVectorizer
@@ -50,22 +50,16 @@ def predict_pos_tags(sentence, vectorizer, clf):
 
 
 def main(data):
-     # Load and preprocess the data
-    train_data, dev_data, test_data = data 
+    # Load and preprocess the data
+    train_data, test_data = data 
 
     # Prepare the data for training, dev, and testing
     train_features, train_labels = prepare_data(train_data)
-    dev_features, dev_labels = prepare_data(dev_data)
-    test_features, test_labels = prepare_data(test_data)
 
     # Train the Logistic Regression model
     model, vectorizer = train_logistic_regression_model(train_features, train_labels)
 
     # Evaluate the model on the development set
-    print("Evaluation on the Development Set:")
-    evaluate_model(model, vectorizer, dev_data)
-
-    # Evaluate the model on the test set
     print("Evaluation on the Test Set:")
     evaluate_model(model, vectorizer, test_data)
 
