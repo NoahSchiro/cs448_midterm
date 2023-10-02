@@ -6,11 +6,11 @@ from algos.utils import get_data
 
 if __name__ == "__main__":
     # Get the data and split
-    train_data, _, test_data = get_data()
+    train_data, test_data = get_data(train_file="train.txt", test_file="unlabeled_test_test.txt")
 
     # Prepare the data for training and testing
     train_features, train_labels = utils.prepare_data(train_data)
-    test_features, test_labels = utils.prepare_data(test_data)
+    #test_features, test_labels = utils.prepare_data(test_data)
 
     # Train the Logistic Regression model
     print("-----------------TRAINING LOG REG------------------------")
@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     # Open the output file for writing
     with open("NLP_Pioneers.test.txt", "w") as output_file:
-        for (feature, label) in zip(test_features, test_labels):
+        for feature in test_data:
 
             # Make a prediction for bayes
             b_pred = bayes.forward(feature)
@@ -61,9 +61,4 @@ if __name__ == "__main__":
             # Write the token and predicted tag to the output file
             output_file.write(f"{feature['token']},{pred}\n")
 
-            total += 1
-            if pred == label:
-                correct += 1
-            else:
-                print(f"pred: {pred}, acc: {label}")
-                print(f"accu: {(correct / total) * 100}")
+        

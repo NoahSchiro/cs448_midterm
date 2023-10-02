@@ -22,18 +22,18 @@ def get_data(train_file="train.txt", test_file="unlabeled_test_test.txt", test_s
     # Read and parse the test data from 'unlabeled_test_test.txt'
     with open(test_file, "r") as f:
         test_lines = f.read().strip().split('\n')
-        test_data = [line.split(' ')[:2] for line in test_lines]
+        test_data = [{"token": line.split(' ')[0]} for line in test_lines]
 
-    # Split the training data into training and validation sets
+
+    # Split the training data into training 
     random.seed(random_seed)
     random.shuffle(train_data)
 
     test_split = int(len(train_data) * test_size)
 
-    validation_data = train_data[:test_split]
     train_data = train_data[test_split:]
 
-    return train_data, validation_data, test_data
+    return train_data, test_data
 
 # Feature extraction: defining features for each token based on its context,
 # such as the previous and next words, prefixes, suffixes, etc. 
@@ -65,7 +65,7 @@ def prepare_data(data):
 if __name__ == "__main__":
 
     # Load and preprocess the data
-    train_data, validation_data, test_data = get_data()
+    train_data, test_data = get_data()
 
     # Print the first few tuples of the training data
     print("Sample training data tuples:")
@@ -79,6 +79,5 @@ if __name__ == "__main__":
 
     # Prepare the data
     train_features, train_labels = prepare_data(train_data)
-    validation_features, validation_labels = prepare_data(validation_data)
     test_features, _ = prepare_data(test_data)
 
