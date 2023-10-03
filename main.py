@@ -33,7 +33,7 @@ if __name__ == "__main__":
         for feature in test_data:
 
             # Make a prediction for bayes
-            b_pred = bayes.forward(feature)
+            b_pred = bayes.forward(feature)[0]
 
             # Make a prediction for svm
             s_pred = svm.predict_pos_tags([feature["token"]], svm_vectorizer, svm_model)[0]
@@ -59,6 +59,6 @@ if __name__ == "__main__":
                 pred = l_pred
 
             # Write the token and predicted tag to the output file
-            output_file.write(f"{feature['token']},{pred}\n")
+            output_file.write(f"{feature['token']} {pred}\n")
 
         
